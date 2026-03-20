@@ -1,0 +1,36 @@
+﻿C:\Users\angel\Desktop\phaser-3D\phaser3D\app.js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\test.js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.add(v).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.autoAdjustScale(ms).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.clearBuffers().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.clipTriangleNear(c0, c1, c2, near, uvs).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.cross(v).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.dot(v).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.drawTriangleZBuffer(p0, p1, p2, ...).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.getLODMeshForDistance(dist).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.getStats().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.getTransformedVertices().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.getWorldBoundingSphere().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.length().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.moveForward(amount).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.moveRight(amount).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.mulScalar(s).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.normalize().js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.render(meshes).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.resize(width, height).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.rotateX(angle).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.rotateY(angle).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.rotateZ(angle).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.sampleTexture(texture, u, v).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.setLODLevels(levels).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.setRenderScale(scale).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.sub(v).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\.worldToCameraInto(v, ..., out).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Math3D.computeNormal(v1, v2, v3).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Math3D.isFaceVisible(v1, v2, v3).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Math3D.project(v, camera, w, h).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Math3D.triangulate(face).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Mesh.createBox(w, h, d).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Mesh.createCube(size).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\ducumentation examples\Vector3(x, y, z).js
+C:\Users\angel\Desktop\phaser-3D\phaser3D\indexJsCss\index.js

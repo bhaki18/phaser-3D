@@ -22,11 +22,11 @@
 <body>
     <div id="loading">Initialing 3D Engine Example...</div>
     <script type="module">
-        import Vector3 from './phaser3D/js/Vector3.js';
-        import Camera from './phaser3D/js/Camera.js';
-        import Mesh from './phaser3D/js/Mesh.js';
-        import Render from './phaser3D/js/Render.js';
-        import Math3D from './phaser3D/js/Math3D.js';
+        import Vector3 from './js/Vector3.js';
+        import Camera from './js/Camera.js';
+        import Mesh from './js/Mesh.js';
+        import Render from './js/Render.js';
+        import Math3D from './js/Math3D.js';
 
         // Expose modules to the global scope since the example files assume they are globally available!
         window.Vector3 = Vector3;
@@ -39,7 +39,7 @@
         const fileParam = urlParams.get('file');
 
         if (fileParam) {
-            fetch('./examples/' + fileParam)
+            fetch('../examples/' + fileParam)
                 .then(res => {
                     if (!res.ok) throw new Error("File not found");
                     return res.text();

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phaser 3D Engine – Documentation & Examples</title>
+    <meta name="description" content="Official documentation and interactive examples for the Phaser Software 3D Engine — a custom software rasterizer built in JavaScript on top of Phaser 3." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════  TOP BAR  ═══════ -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+            <span class="logo-cube" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <polygon points="14,2 26,9 26,21 14,28 2,21 2,9" fill="none" stroke="url(#gcu)" stroke-width="2"/>
+                    <polyline points="14,2 14,28" stroke="url(#gcu)" stroke-width="1.2" opacity="0.4"/>
+                    <polyline points="2,9 26,21" stroke="url(#gcu)" stroke-width="1.2" opacity="0.4"/>
+                    <polyline points="26,9 2,21" stroke="url(#gcu)" stroke-width="1.2" opacity="0.4"/>
+                    <defs>
+                        <linearGradient id="gcu" x1="0" y1="0" x2="28" y2="28">
+                            <stop offset="0%" stop-color="#a78bfa"/>
+                            <stop offset="100%" stop-color="#60a5fa"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </span>
+            <span class="logo-text">Phaser <span class="logo-accent">3D</span></span>
+        </div>
+
+        <nav class="topnav" role="navigation" aria-label="Top navigation">
+            <a href="#" class="topnav-link active" data-view="examples">Examples</a>
+            <a href="#" class="topnav-link" data-view="docs">Docs</a>
+            <a href="https://phaser.io" class="topnav-link" target="_blank" rel="noopener">Phaser →</a>
+        </nav>
+
+        <div class="topbar-search">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+                <line x1="10" y1="10" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <input id="search-input" type="text" placeholder="Search examples…" autocomplete="off" />
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════  MAIN LAYOUT  ═══ -->
+<div class="layout" id="examples-view">
+
+    <!-- ──── SIDEBAR ──── -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Example list">
+        <div class="sidebar-section-title">Vector3</div>
+        <ul class="example-list" id="example-list-Vector3"></ul>
+
+        <div class="sidebar-section-title">Camera</div>
+        <ul class="example-list" id="example-list-Camera"></ul>
+
+        <div class="sidebar-section-title">Mesh</div>
+        <ul class="example-list" id="example-list-Mesh"></ul>
+
+        <div class="sidebar-section-title">Renderer</div>
+        <ul class="example-list" id="example-list-Renderer"></ul>
+
+        <div class="sidebar-section-title">Math3D</div>
+        <ul class="example-list" id="example-list-Math3D"></ul>
+    </aside>
+
+    <!-- ──── MAIN PANEL ──── -->
+    <main class="main-panel" id="main-panel">
+
+        <!-- HERO (shown before any selection) -->
+        <section class="hero" id="hero-section">
+            <div class="hero-bg-anim" aria-hidden="true">
+                <canvas id="hero-canvas"></canvas>
+            </div>
+            <div class="hero-content">
+                <div class="hero-badge">Software Rasterizer · JavaScript · Phaser 3</div>
+                <h1 class="hero-title">Phaser <span class="accent-gradient">3D Engine</span></h1>
+                <p class="hero-sub">A custom, lightweight 3D rendering pipeline built entirely in JavaScript — no WebGL, no Three.js. Select an example on the left to explore the API.</p>
+                <div class="hero-stats">
+                    <div class="stat-chip"><span class="stat-num">33</span><span class="stat-label">APIs</span></div>
+                    <div class="stat-chip"><span class="stat-num">5</span><span class="stat-label">Modules</span></div>
+                    <div class="stat-chip"><span class="stat-num">~15k</span><span class="stat-label">Tri/frame</span></div>
+                </div>
+                <div class="hero-cta-row">
+                    <button class="btn-primary" id="open-live-demo">▶ Open Live Demo</button>
+                    <a class="btn-outline" href="#" data-view="docs">Read Docs</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAMPLE PANEL (shown after selection) -->
+        <section class="example-view hidden" id="example-view">
+            <div class="example-header">
+                <div class="example-breadcrumb" id="example-breadcrumb"></div>
+                <h2 class="example-title" id="example-title"></h2>
+                <p class="example-description" id="example-description"></p>
+            </div>
+
+            <div class="example-split">
+                <!-- source code panel -->
+                <div class="code-panel">
+                    <div class="code-toolbar">
+                        <span class="code-lang">JavaScript</span>
+                        <button class="copy-btn" id="copy-btn" title="Copy to clipboard">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <rect x="5" y="5" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.4"/>
+                                <path d="M5 3H2a1 1 0 0 0-1 1v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="code-block"><code id="code-output"></code></pre>
+                </div>
+
+                <!-- info card panel -->
+                <div class="info-panel">
+                    <div class="info-card">
+                        <h3 class="info-card-title">About this API</h3>
+                        <div class="info-card-body" id="info-card-body"></div>
+                    </div>
+                    <div class="info-card">
+                        <h3 class="info-card-title">Class</h3>
+                        <div class="info-card-body" id="info-class-body"></div>
+                    </div>
+                    <a class="btn-outline full-width" id="open-phaser-link" href="https://phaser.io/examples" target="_blank">
+                        Official Phaser Examples →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- ═══════════════════════════════════════  DOCS VIEW  ══════ -->
+<div class="docs-view hidden" id="docs-view">
+    <div class="docs-inner">
+        <aside class="docs-sidebar">
+            <div class="docs-sidebar-title">Table of Contents</div>
+            <ul class="docs-toc">
+                <li><a href="#doc-architecture">Architecture</a></li>
+                <li><a href="#doc-start">Getting Started</a></li>
+                <li><a href="#doc-meshes">Creating Meshes</a></li>
+                <li><a href="#doc-rendering">Rendering</a></li>
+                <li><a href="#doc-textures">Textures</a></li>
+                <li><a href="#doc-gameplay">Gameplay</a></li>
+                <li><a href="#doc-physics">Physics</a></li>
+                <li><a href="#doc-perf">Performance</a></li>
+            </ul>
+        </aside>
+        <article class="docs-article" id="docs-article">
+            <!-- filled dynamically -->
+        </article>
+    </div>
+</div>
+
+<!-- ══════════════════════════  LIVE DEMO OVERLAY ══════════ -->
+<div class="demo-overlay hidden" id="demo-overlay">
+    <div class="demo-panel">
+        <button class="demo-close" id="demo-close" aria-label="Close demo">✕</button>
+        <iframe
+            id="demo-iframe"
+            src="../index.html"
+            title="Phaser 3D Engine – Live Demo"
+            allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

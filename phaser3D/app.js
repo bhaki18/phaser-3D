@@ -156,14 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('welcome-hero').classList.remove('hidden');
     });
 
-    const topApiLink = document.getElementById('top-api-link');
-    if (topApiLink) {
-        topApiLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            tabDocs.click();
-        });
-    }
-
     // Copy to clipboard
     copyBtn.addEventListener('click', () => {
         const code = document.getElementById('code-output').innerText;
@@ -250,7 +242,7 @@ function loadDoc(category) {
 
     const filename = categoryToFile[category];
     if (filename) {
-        fetch('./phaser3D/js/' + filename)
+        fetch('./js/' + filename)
             .then(res => res.text())
             .then(code => {
                 document.getElementById('api-source-loader').classList.add('hidden');
@@ -286,7 +278,7 @@ function loadExample(filename, liElement) {
     document.getElementById('iframe-loader').classList.remove('hidden');
 
     // Fetch Code & Inject
-    fetch('./examples/' + filename)
+    fetch('../examples/' + filename)
         .then(res => res.text())
         .then(code => {
             const codeOutput = document.getElementById('code-output');

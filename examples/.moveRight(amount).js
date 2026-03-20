@@ -1,0 +1,18 @@
+class Example extends Phaser.Scene {
+    create() { this.add.text(10, 10, 'Camera Move Right\nPanning across static scene', {fill:'#0f0'});
+        this.camera = new Camera(); this.camera.position = new Vector3(-80,0,-20);
+        this.renderer = new Render(this, this.camera, {renderScale:1});
+        this.meshes = [];
+        for(let i=0; i<10; i++) {
+            let m = Mesh.createCube(10); m.baseColor = 0xff0055;
+            m.position = new Vector3(i * 20 - 50, 0, 20);
+            this.meshes.push(m);
+        }
+    }
+    update(t, d) {
+        this.renderer.clearBuffers();
+        this.camera.position.x = Math.sin(t*0.001) * 80;
+        this.renderer.render(this.meshes);
+    }
+}
+const game = new Phaser.Game({type: Phaser.AUTO, width: 800, height: 600, scene: Example});
