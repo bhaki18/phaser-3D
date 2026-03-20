@@ -90,6 +90,14 @@ class Render {
         this.ctx.fill();
     }
 
+
+    worldToCameraInto(worldPos, target) {
+        const camSpace = Math3D.toCameraSpace(worldPos, this.camera);
+        target.x = camSpace.x;
+        target.y = camSpace.y;
+        target.z = camSpace.z;
+    }
+
     drawTriangleZBuffer(p0, p1, p2, color) {
         // Fallback to normal drawTriangle for now, but with Z-check for centroids
         const avgZ = (p0.z + p1.z + p2.z) / 3;

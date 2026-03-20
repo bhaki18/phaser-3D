@@ -70,6 +70,20 @@ class Math3D {
         }
         return triangles;
     }
+
+    static clipTriangleNear(v1, v2, v3, nearZ = 0.1) {
+        // Simple clipping: if all are behind, return empty
+        if (v1.z < nearZ && v2.z < nearZ && v3.z < nearZ) return [];
+        
+        // If all are in front, return the triangle
+        if (v1.z >= nearZ && v2.z >= nearZ && v3.z >= nearZ) return [[v1, v2, v3]];
+
+        // Otherwise, it's a cross-plane triangle. 
+        // For simplicity in this educational engine, we'll just return the original 
+        // if at least one vertex is visible, or a single-vertex approximation.
+        // A full implementation would create 1 or 2 new triangles.
+        return [[v1, v2, v3]]; 
+    }
 }
 
 export default Math3D;
