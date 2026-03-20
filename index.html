@@ -95,12 +95,12 @@
             <!-- Editor / Preview View (Shown when example is clicked) -->
             <div id="editor-view" class="editor-view hidden">
                 
-                <!-- Preview Canvas Panel -->
-                <section class="preview-section glass-panel">
+                <!-- Preview / Visor Panel (Attached to Sidebar) -->
+                <section class="preview-section glass-panel" id="visor-panel">
                     <div class="section-header">
                         <div class="header-left">
                             <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-                            <span class="preview-title" id="preview-title">Interactive Demo</span>
+                            <span class="preview-title" id="preview-title">Visor Rendering</span>
                         </div>
                         <div class="header-right">
                             <div class="loader-ring hidden" id="iframe-loader"></div>
@@ -111,10 +111,10 @@
                     </div>
                 </section>
 
-                <!-- Code Editor Panel -->
+                <!-- Code Editor Panel (Main Visibility on the Right) -->
                 <section class="code-section glass-panel">
                     <div class="section-header">
-                        <span class="preview-title">Source Code</span>
+                        <span class="preview-title">Implementation Details</span>
                         <button class="btn-copy" id="copy-btn">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                             Copy Code

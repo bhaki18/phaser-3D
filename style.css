@@ -280,7 +280,7 @@ body {
 }
 
 .preview-section {
-    flex: 1;
+    flex: 0.7;
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--border-glass);
@@ -288,7 +288,7 @@ body {
 }
 
 .code-section {
-    flex: 1.2;
+    flex: 2;
     display: flex;
     flex-direction: column;
     background: var(--c-bg);

@@ -287,54 +287,29 @@ function loadExample(filename, liElement) {
     document.getElementById('welcome-hero').classList.add('hidden');
     document.getElementById('docs-view').classList.add('hidden');
     
-    // Setup the 3-column layout structure
     const editorView = document.getElementById('editor-view');
-    editorView.innerHTML = `
-        <div id="examples-sidebar" class="sidebar"></div>
-        <div class="preview-section">
-            <div class="section-header">
-                <div class="header-left">
-                    <div class="dot red"></div>
-                    <div class="dot yellow"></div>
-                    <div class="dot green"></div>
-                    <span class="preview-title">Interactive Preview: ${filename}</span>
-                </div>
-                <div id="iframe-loader" class="loader-ring hidden"></div>
-            </div>
-            <div class="iframe-container">
-                <iframe id="demo-iframe" src="about:blank"></iframe>
-            </div>
-        </div>
-        <div class="code-section">
-            <div class="section-header">
-                <div class="header-left">
-                    <span class="preview-title">Source Code</span>
-                </div>
-                <button class="btn-copy" onclick="window.copyExampleCode()">Copy</button>
-            </div>
-            <div class="code-scroll">
-                <pre><code id="code-output"></code></pre>
-            </div>
-        </div>
-    `;
-    
     editorView.classList.remove('hidden');
     editorView.style.display = 'flex';
+
+    // Update Visor & Code Content without re-writing layout
+    const previewTitle = document.getElementById('preview-title');
+    if (previewTitle) previewTitle.textContent = `Visor: ${filename}`;
     
-    // Re-initialize the sidebar inside editor-view
-    initSidebar();
-    
-    // Mark as active again since initSidebar regenerates elements
-    const newLi = document.querySelector(`li[data-file="${filename}"]`);
-    if (newLi) newLi.classList.add('active');
+    const exLoader = document.getElementById('iframe-loader');
+    if (exLoader) exLoader.classList.remove('hidden');
+
+    const codeOutput = document.getElementById('code-output');
+    if (codeOutput) codeOutput.textContent = "// Loading source...";
+
+    // Update iframe and handle loading state
+    const iframe = document.getElementById('demo-iframe');
+    iframe.onload = () => { if (exLoader) exLoader.classList.add('hidden'); };
+    iframe.src = `./viewer.html?file=${filename}`;
 
     // Add small animation
     editorView.classList.remove('fade-in');
     void editorView.offsetWidth;
     editorView.classList.add('fade-in');
-
-    const loader = document.getElementById('iframe-loader');
-    loader.classList.remove('hidden');
 
     // Fetch Code & Inject
     fetch('./examples/' + filename)
@@ -344,14 +319,10 @@ function loadExample(filename, liElement) {
             codeOutput.textContent = code;
             applySyntaxHighlighting(codeOutput);
 
-            // Load iframe after code is ready
-            const iframe = document.getElementById('demo-iframe');
-            iframe.onload = () => loader.classList.add('hidden');
-            iframe.src = `viewer.html?file=${encodeURIComponent(filename)}`;
         })
         .catch(err => {
-            document.getElementById('code-output').textContent = "// System Error loading file.\n" + err;
-            loader.classList.add('hidden');
+            if (codeOutput) codeOutput.textContent = "// System Error loading file.\n" + err;
+            if (exLoader) exLoader.classList.add('hidden');
         });
 }
 
