@@ -1,27 +1,26 @@
-// Data Structure mapping categories to example files
 const examplesData = {
     "Vector3 (Math)": [
-        ".add(v).js", ".sub(v).js", ".mulScalar(s).js", ".dot(v).js", 
-        ".cross(v).js", ".normalize().js", ".length().js", "Vector3(x, y, z).js"
+        "add.js", "sub.js", "mulScalar.js", "dot.js", 
+        "cross.js", "normalize.js", "length.js", "Vector3.js"
     ],
     "Camera": [
-        ".moveForward(amount).js", ".moveRight(amount).js"
+        "moveForward.js", "moveRight.js"
     ],
     "Mesh (Geometry)": [
-        ".rotateX(angle).js", ".rotateY(angle).js", ".rotateZ(angle).js", 
-        ".getTransformedVertices().js", ".getWorldBoundingSphere().js", 
-        ".getLODMeshForDistance(dist).js", ".setLODLevels(levels).js",
-        "Mesh.createBox(w, h, d).js", "Mesh.createCube(size).js"
+        "rotateX.js", "rotateY.js", "rotateZ.js", 
+        "getTransformedVertices.js", "getWorldBoundingSphere.js", 
+        "getLODMeshForDistance.js", "setLODLevels.js",
+        "Mesh.createBox.js", "Mesh.createCube.js"
     ],
     "Renderer (Core)": [
-        ".render(meshes).js", ".clearBuffers().js", ".drawTriangleZBuffer(p0, p1, p2, ...).js", 
-        ".clipTriangleNear(c0, c1, c2, near, uvs).js", ".sampleTexture(texture, u, v).js", 
-        ".resize(width, height).js", ".setRenderScale(scale).js", 
-        ".autoAdjustScale(ms).js", ".getStats().js", ".worldToCameraInto(v, ..., out).js"
+        "render.js", "clearBuffers.js", "drawTriangleZBuffer.js", 
+        "clipTriangleNear.js", "sampleTexture.js", 
+        "resize.js", "setRenderScale.js", 
+        "autoAdjustScale.js", "getStats.js", "worldToCameraInto.js"
     ],
     "Math3D (Projection)": [
-        "Math3D.computeNormal(v1, v2, v3).js", "Math3D.isFaceVisible(v1, v2, v3).js", 
-        "Math3D.project(v, camera, w, h).js", "Math3D.triangulate(face).js"
+        "Math3D.computeNormal.js", "Math3D.isFaceVisible.js", 
+        "Math3D.project.js", "Math3D.triangulate.js"
     ]
 };
 

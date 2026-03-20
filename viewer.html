@@ -28,7 +28,7 @@
         import Render from './phaser3D/js/Render.js';
         import Math3D from './phaser3D/js/Math3D.js';
 
-        // Expose modules to the global scope since the example files assume they are globally available!
+        // Expose modules to the global scope
         window.Vector3 = Vector3;
         window.Camera = Camera;
         window.Mesh = Mesh;
@@ -41,13 +41,16 @@
         if (fileParam) {
             fetch('./examples/' + fileParam)
                 .then(res => {
-                    if (!res.ok) throw new Error("File not found");
+                    if (!res.ok) throw new Error("File not found: " + fileParam);
                     return res.text();
                 })
                 .then(code => {
-                    document.getElementById('loading').remove();
-                    // Inject the user's script globally!
+                    const loadingEl = document.getElementById('loading');
+                    if (loadingEl) loadingEl.remove();
+
+                    // Inject as a module script to support potential imports/exports
                     const scriptNode = document.createElement('script');
+                    scriptNode.type = 'module';
                     scriptNode.textContent = code;
                     document.body.appendChild(scriptNode);
                 })
