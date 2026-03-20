@@ -1,1 +1,20 @@
-class Example extends Phaser.Scene {     create() { this.txt = this.add.text(10, 10, 'Renderer.getStats()', {fill:'#0f0'});         this.camera = new Camera(); this.camera.position = new Vector3(0,0,-150);         this.renderer = new Render(this, this.camera, {renderScale:0.5});         this.meshes = [];         for(let i=0; i<30; i++) {             let m = Mesh.createCube(10); m.baseColor = Math.random() * 0xffffff;             m.position = new Vector3((Math.random()-0.5)*100, (Math.random()-0.5)*100, (Math.random()-0.5)*100);             this.meshes.push(m);         }     }     update(t, d) {         this.renderer.clearBuffers();         this.meshes.forEach(m => { m.rotation.x += 0.01; m.rotation.y += 0.02; });         this.renderer.render(this.meshes);         let s = this.renderer.getStats();         this.txt.setText(`Renderer.getStats()\nMeshes: ${s.meshesProcessed}\nTris Rendered: ${s.trianglesRendered}\nTris total: ${s.trianglesTotal}`);     } } const game = new Phaser.Game({type: Phaser.AUTO, width: 800, height: 600, scene: Example});
+﻿class Example extends Phaser.Scene {
+    create() { this.txt = this.add.text(10, 10, 'Renderer.getStats()', {fill:'#0f0'});
+        this.camera = new Camera(); this.camera.position = new Vector3(0,0,-150);
+        this.renderer = new Render(this, this.camera, {renderScale:0.5});
+        this.meshes = [];
+        for(let i=0; i<30; i++) {
+            let m = Mesh.createCube(10); m.baseColor = Math.random() * 0xffffff;
+            m.position = new Vector3((Math.random()-0.5)*100, (Math.random()-0.5)*100, (Math.random()-0.5)*100);
+            this.meshes.push(m);
+        }
+    }
+    update(t, d) {
+        this.renderer.clearBuffers();
+        this.meshes.forEach(m => { m.rotation.x += 0.01; m.rotation.y += 0.02; });
+        this.renderer.render(this.meshes);
+        let s = this.renderer.getStats();
+        this.txt.setText(`Renderer.getStats()\nMeshes: ${s.meshesProcessed}\nTris Rendered: ${s.trianglesRendered}\nTris total: ${s.trianglesTotal}`);
+    }
+}
+const game = new Phaser.Game({type: Phaser.AUTO, width: 800, height: 600, scene: Example});
