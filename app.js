@@ -140,8 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initSidebar();
         
         document.getElementById('editor-view').classList.add('hidden');
-        document.getElementById('docs-view').classList.add('hidden');
-        document.getElementById('welcome-hero').classList.remove('hidden');
+        const docsView = document.getElementById('docs-view');
+        docsView.classList.remove('hidden');
+        document.getElementById('welcome-hero').classList.add('hidden');
+
+        // Reset docs view scroll
+        const docsContent = document.querySelector('.docs-content-scroll');
+        if (docsContent) docsContent.scrollTop = 0;
     });
 
     tabExamples.addEventListener('click', () => {
@@ -153,9 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('editor-view').classList.add('hidden');
         document.getElementById('docs-view').classList.add('hidden');
         document.getElementById('welcome-hero').classList.remove('hidden');
-        
-        // Ensure sidebar stays visible for 3-column experience
-        document.querySelector('.sidebar').classList.remove('hidden');
     });
 
     const topDemoBtn = document.querySelector('.nav-btn');
@@ -285,21 +287,54 @@ function loadExample(filename, liElement) {
     document.getElementById('welcome-hero').classList.add('hidden');
     document.getElementById('docs-view').classList.add('hidden');
     
-    // Ensure 3-column layout
+    // Setup the 3-column layout structure
     const editorView = document.getElementById('editor-view');
+    editorView.innerHTML = `
+        <div id="examples-sidebar" class="sidebar"></div>
+        <div class="preview-section">
+            <div class="section-header">
+                <div class="header-left">
+                    <div class="dot red"></div>
+                    <div class="dot yellow"></div>
+                    <div class="dot green"></div>
+                    <span class="preview-title">Interactive Preview: ${filename}</span>
+                </div>
+                <div id="iframe-loader" class="loader-ring hidden"></div>
+            </div>
+            <div class="iframe-container">
+                <iframe id="demo-iframe" src="about:blank"></iframe>
+            </div>
+        </div>
+        <div class="code-section">
+            <div class="section-header">
+                <div class="header-left">
+                    <span class="preview-title">Source Code</span>
+                </div>
+                <button class="btn-copy" onclick="window.copyExampleCode()">Copy</button>
+            </div>
+            <div class="code-scroll">
+                <pre><code id="code-output"></code></pre>
+            </div>
+        </div>
+    `;
+    
     editorView.classList.remove('hidden');
-    editorView.style.display = 'flex'; // Force flex row
+    editorView.style.display = 'flex';
     
-    document.querySelector('.sidebar').style.display = 'flex';
-    document.querySelector('.workspace').style.flex = '1';
+    // Re-initialize the sidebar inside editor-view
+    initSidebar();
     
-    // Add small animation to re-trigger fade in
+    // Mark as active again since initSidebar regenerates elements
+    const newLi = document.querySelector(`li[data-file="${filename}"]`);
+    if (newLi) newLi.classList.add('active');
+
+    // Add small animation
     editorView.classList.remove('fade-in');
-    void editorView.offsetWidth; // trigger reflow
+    void editorView.offsetWidth;
     editorView.classList.add('fade-in');
 
-    document.getElementById('preview-title').textContent = filename;
-    document.getElementById('iframe-loader').classList.remove('hidden');
+    const loader = document.getElementById('iframe-loader');
+    loader.classList.remove('hidden');
 
     // Fetch Code & Inject
     fetch('./examples/' + filename)
@@ -309,14 +344,26 @@ function loadExample(filename, liElement) {
             codeOutput.textContent = code;
             applySyntaxHighlighting(codeOutput);
 
-            // Load iframe
-            document.getElementById('demo-iframe').src = `viewer.html?file=${encodeURIComponent(filename)}`;
+            // Load iframe after code is ready
+            const iframe = document.getElementById('demo-iframe');
+            iframe.onload = () => loader.classList.add('hidden');
+            iframe.src = `viewer.html?file=${encodeURIComponent(filename)}`;
         })
         .catch(err => {
             document.getElementById('code-output').textContent = "// System Error loading file.\n" + err;
-            document.getElementById('iframe-loader').classList.add('hidden');
+            loader.classList.add('hidden');
         });
 }
+
+window.copyExampleCode = () => {
+    const code = document.getElementById('code-output').textContent;
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const oldText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = oldText, 2000);
+    });
+};
 
 // Advanced Regex-based Syntax Highlighting (No external libraries needed)
 function applySyntaxHighlighting(el) {
