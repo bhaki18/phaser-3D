@@ -281,17 +281,38 @@ body {
 
 .preview-section {
     flex: 0.7;
+    min-width: 200px; /* Prevent total collapse */
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--border-glass);
     background: #000;
 }
 
 .code-section {
     flex: 2;
+    min-width: 300px; /* Keep code readable */
     display: flex;
     flex-direction: column;
     background: var(--c-bg);
+}
+
+.resizer {
+    width: 6px;
+    background: transparent;
+    cursor: col-resize;
+    position: relative;
+    z-index: 10;
+    transition: background 0.2s;
+    border-left: 1px solid var(--border-glass);
+}
+
+.resizer:hover, .resizer.dragging {
+    background: var(--c-primary);
+    width: 6px;
+}
+
+/* Helper to prevent iframe from capturing mouse during resize */
+.resizing-active iframe {
+    pointer-events: none;
 }
 
 .preview-section, .code-section {

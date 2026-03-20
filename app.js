@@ -186,6 +186,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    initResizer();
+
     // Iframe load event to stop spinner
     iframe.addEventListener('load', () => {
         loader.classList.add('hidden');
@@ -435,4 +437,49 @@ function initParticles() {
         requestAnimationFrame(animate);
     }
     animate();
+}
+
+function initResizer() {
+    const resizer = document.getElementById('panel-resizer');
+    const previewSection = document.querySelector('.preview-section');
+    const codeSection = document.querySelector('.code-section');
+    const container = document.querySelector('.editor-view');
+    let isDragging = false;
+
+    if (!resizer) return;
+
+    resizer.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        resizer.classList.add('dragging');
+        document.body.classList.add('resizing-active');
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+
+    function onMouseMove(e) {
+        if (!isDragging) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const totalWidth = containerRect.width;
+        const mouseX = e.clientX - containerRect.left;
+
+        // Calculate split point
+        let previewPercent = (mouseX / totalWidth) * 100;
+        let codePercent = 100 - previewPercent;
+
+        // Constraints
+        if (previewPercent >= 15 && previewPercent <= 85) {
+            previewSection.style.flex = `0 0 ${previewPercent}%`;
+            codeSection.style.flex = `1 1 ${codePercent}%`;
+        }
+    }
+
+    function onMouseUp() {
+        if (!isDragging) return;
+        isDragging = false;
+        resizer.classList.remove('dragging');
+        document.body.classList.remove('resizing-active');
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+    }
 }
