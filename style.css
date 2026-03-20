@@ -138,20 +138,22 @@ body {
     display: flex;
     flex: 1;
     overflow: hidden;
-    max-width: 1800px;
-    margin: 0 auto;
+    max-width: 100%;
+    margin: 0;
     width: 100%;
-    padding: 24px;
-    gap: 24px;
+    gap: 0;
+    padding: 0;
 }
 
 /* --- Sidebar --- */
 .sidebar {
     width: 300px;
-    border-radius: 16px;
+    border-radius: 0;
+    border-right: 1px solid var(--border-glass);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex-shrink: 0;
 }
 .sidebar-tabs {
     display: flex;
@@ -269,20 +271,30 @@ body {
 .feature-card h3 { font-size: 16px; margin-bottom: 8px; color: #fff; }
 .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-/* Editor View Split */
+/* Editor View Split (3 Columns) */
 .editor-view {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    flex-direction: row; 
     height: 100%;
+    width: 100%;
 }
-@media(min-width: 1024px) {
-    .editor-view { flex-direction: row; }
+
+.preview-section {
+    flex: 1.3;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-glass);
+    background: #000;
+}
+
+.code-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--c-bg);
 }
 
 .preview-section, .code-section {
-    flex: 1;
-    border-radius: 16px;
     display: flex;
     flex-direction: column;
     overflow: hidden;

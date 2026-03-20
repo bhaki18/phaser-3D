@@ -154,7 +154,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('editor-view').classList.add('hidden');
         document.getElementById('docs-view').classList.add('hidden');
         document.getElementById('welcome-hero').classList.remove('hidden');
+        
+        // Ensure sidebar stays visible for 3-column experience
+        document.querySelector('.sidebar').classList.remove('hidden');
     });
+
+    const topDemoBtn = document.querySelector('.nav-btn');
+    if (topDemoBtn) {
+        topDemoBtn.addEventListener('click', (e) => {
+            // Let the target="_blank" handle it, or we could load it in app
+            // For now, demo.html is the target in index.html
+        });
+    }
 
     const topApiLink = document.getElementById('top-api-link');
     if (topApiLink) {
@@ -274,8 +285,14 @@ function loadExample(filename, liElement) {
     // Switch Views
     document.getElementById('welcome-hero').classList.add('hidden');
     document.getElementById('docs-view').classList.add('hidden');
+    
+    // Ensure 3-column layout
     const editorView = document.getElementById('editor-view');
     editorView.classList.remove('hidden');
+    editorView.style.display = 'flex'; // Force flex row
+    
+    document.querySelector('.sidebar').style.display = 'flex';
+    document.querySelector('.workspace').style.flex = '1';
     
     // Add small animation to re-trigger fade in
     editorView.classList.remove('fade-in');

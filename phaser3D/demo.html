@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Phaser 3D Engine - Play Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: sans-serif; }
+        #controls { position: absolute; top: 20px; left: 20px; color: #00f0ff; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; border: 1px solid rgba(0, 240, 255, 0.3); pointer-events: none; }
+        .back-link { position: absolute; bottom: 20px; right: 20px; color: #fff; text-decoration: none; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; font-size: 14px; transition: 0.3s; }
+        .back-link:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <h2 style="margin:0 0 10px 0">3D Sandbox</h2>
+        <p style="margin:5px 0; font-size:13px; opacity:0.8">WASD: Move Camera | Mouse: Look around</p>
+        <p style="margin:5px 0; font-size:13px; opacity:0.8">Initializing Engine modules...</p>
+    </div>
+    <a href="../index.html" class="back-link">← Return to Docs</a>
+    
+    <script type="module">
+        import Vector3 from './js/Vector3.js';
+        import Camera from './js/Camera.js';
+        import Mesh from './js/Mesh.js';
+        import Render from './js/Render.js';
+        import Math3D from './js/Math3D.js';
+
+        // Custom Demo Logic (Replacing sceneExample.js)
+        class DemoScene extends Phaser.Scene {
+            constructor() { super('DemoScene'); }
+            
+            preload() {
+                // Preload any assets if needed
+            }
+
+            create() {
+                const width = this.cameras.main.width;
+                const height = this.cameras.main.height;
+                
+                this.camera3D = new Camera();
+                this.camera3D.position = new Vector3(0, 5, -15);
+                this.camera3D.rotation = new Vector3(0.3, 0, 0);
+                
+                this.renderer = new Render(this, this.camera3D, {
+                    renderScale: 1,
+                    triangleBudget: 5000
+                });
+
+                // Create a floating grid and some cubes
+                this.meshes = [];
+                
+                // Floor Grid
+                for(let x = -5; x <= 5; x++) {
+                    for(let z = -5; z <= 5; z++) {
+                        const cube = Mesh.createCube(0.2);
+                        cube.position = new Vector3(x * 2, 0, z * 2);
+                        cube.baseColor = 0x333333;
+                        this.meshes.push(cube);
+                    }
+                }
+
+                // Central rotating structure
+                this.centerCube = Mesh.createCube(2);
+                this.centerCube.position = new Vector3(0, 2, 0);
+                this.centerCube.baseColor = 0x00f0ff;
+                this.meshes.push(this.centerCube);
+
+                this.cursors = this.input.keyboard.createCursorKeys();
+                this.wasd = this.input.keyboard.addKeys('W,A,S,D');
+
+                document.querySelector('#controls p:last-child').textContent = "Engine Ready: High-performance software rasterizer active.";
+            }
+
+            update(time, delta) {
+                const speed = 0.1;
+                if (this.wasd.W.isDown) this.camera3D.position.z += speed;
+                if (this.wasd.S.isDown) this.camera3D.position.z -= speed;
+                if (this.wasd.A.isDown) this.camera3D.position.x -= speed;
+                if (this.wasd.D.isDown) this.camera3D.position.x += speed;
+
+                this.centerCube.rotation.y += 0.01;
+                this.centerCube.rotation.x += 0.005;
+
+                this.renderer.clearBuffers();
+                this.renderer.render(this.meshes);
+            }
+        }
+
+        const config = {
+            type: Phaser.AUTO,
+            width: window.innerWidth,
+            height: window.innerHeight,
+            backgroundColor: '#000000',
+            scene: DemoScene
+        };
+
+        new Phaser.Game(config);
+    </script>
+</body>
+</html>
