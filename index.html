@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Phaser 3D Engine – Documentation</title>
+    <!-- Modern Fonts: Inter for UI, JetBrains Mono for Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- Animated Particle Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Top Navigation -->
+    <header class="topbar">
+        <div class="topbar-inner">
+            <div class="logo">
+                <div class="logo-icon glow-effect">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="url(#grad1)" stroke="#00f0ff" stroke-width="2"/>
+                        <polyline points="50,50 90,30" stroke="#00f0ff" stroke-width="2"/>
+                        <polyline points="50,50 10,30" stroke="#00f0ff" stroke-width="2"/>
+                        <polyline points="50,50 50,90" stroke="#00f0ff" stroke-width="2"/>
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:rgba(0, 240, 255, 0.4);stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:rgba(112, 0, 255, 0.4);stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="logo-text">Phaser <span class="gradient-text">3D Engine</span></span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" id="top-api-link" class="nav-tab active">API Reference</a>
+                <a href="phaser 3D/index.html" class="nav-btn" target="_blank">
+                    <span>Play Demo</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Application Layout -->
+    <div class="app-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="sidebar-tabs">
+                <button id="tab-docs" class="side-tab active">API DOCS</button>
+                <button id="tab-examples" class="side-tab">EXAMPLES</button>
+            </div>
+            <div class="sidebar-scroll" id="sidebar-nav">
+                <!-- Categories injected here by app.js -->
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            
+            <!-- Documentation View (Shows API Reference) -->
+            <div id="docs-view" class="docs-view glass-panel hidden fade-in">
+                <div class="docs-content-scroll">
+                    <div id="docs-content" class="markdown-body">
+                        <!-- Markdown-like HTML injected here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Hero View (Shown initially) -->
+            <div id="welcome-hero" class="hero-view fade-in">
+                <div class="hero-content glass-panel">
+                    <div class="hero-badge">v1.0.0 SOFTWARE RASTERIZER</div>
+                    <h1 class="hero-title">Next-Gen <br/><span class="gradient-text">JS 3D Rendering</span></h1>
+                    <p class="hero-subtitle">A high-performance software rasterizer built natively on top of Phaser 3. No WebGL wrappers, pure mathematical lighting and backface culling.</p>
+                    <div class="hero-features">
+                        <div class="feature-card">
+                            <div class="f-icon">⚡</div>
+                            <h3>Blazing Fast</h3>
+                            <p>Optimized math operations & dynamic Z-Buffering</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="f-icon">⚛</div>
+                            <h3>Modular</h3>
+                            <p>Vector3, Mesh, and Camera classes included natively</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor / Preview View (Shown when example is clicked) -->
+            <div id="editor-view" class="editor-view hidden">
+                
+                <!-- Preview Canvas Panel -->
+                <section class="preview-section glass-panel">
+                    <div class="section-header">
+                        <div class="header-left">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                            <span class="preview-title" id="preview-title">Interactive Demo</span>
+                        </div>
+                        <div class="header-right">
+                            <div class="loader-ring hidden" id="iframe-loader"></div>
+                        </div>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe id="demo-iframe" src="about:blank" title="Preview rendering"></iframe>
+                    </div>
+                </section>
+
+                <!-- Code Editor Panel -->
+                <section class="code-section glass-panel">
+                    <div class="section-header">
+                        <span class="preview-title">Source Code</span>
+                        <button class="btn-copy" id="copy-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copy Code
+                        </button>
+                    </div>
+                    <div class="code-scroll">
+                        <pre><code id="code-output" class="language-javascript">// Select an example from the sidebar...</code></pre>
+                    </div>
+                </section>
+                
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

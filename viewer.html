@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Engine Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.js"></script>
+    <style>
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            background: #111; 
+            overflow: hidden; 
+            width: 100vw; 
+            height: 100vh;
+            color: white;
+            font-family: monospace;
+        }
+        canvas { display: block; }
+        #loading { padding: 20px; color: #aaa; }
+    </style>
+</head>
+<body>
+    <div id="loading">Initialing 3D Engine Example...</div>
+    <script type="module">
+        import Vector3 from './phaser 3D/js/Vector3.js';
+        import Camera from './phaser 3D/js/Camera.js';
+        import Mesh from './phaser 3D/js/Mesh.js';
+        import Render from './phaser 3D/js/Render.js';
+        import Math3D from './phaser 3D/js/Math3D.js';
+
+        // Expose modules to the global scope since the example files assume they are globally available!
+        window.Vector3 = Vector3;
+        window.Camera = Camera;
+        window.Mesh = Mesh;
+        window.Render = Render;
+        window.Math3D = Math3D;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const fileParam = urlParams.get('file');
+
+        if (fileParam) {
+            fetch('./ducumentation examples/' + fileParam)
+                .then(res => {
+                    if (!res.ok) throw new Error("File not found");
+                    return res.text();
+                })
+                .then(code => {
+                    document.getElementById('loading').remove();
+                    // Inject the user's script globally!
+                    const scriptNode = document.createElement('script');
+                    scriptNode.textContent = code;
+                    document.body.appendChild(scriptNode);
+                })
+                .catch(err => {
+                    document.getElementById('loading').textContent = "Error: " + err.message;
+                });
+        } else {
+            document.getElementById('loading').textContent = "No file parameter provided.";
+        }
+    </script>
+</body>
+</html>
