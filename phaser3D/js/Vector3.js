@@ -13,12 +13,20 @@ class Vector3 {
         return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z);
     }
 
+    addScalar(s) {
+        return new Vector3(this.x + s, this.y + s, this.z + s);
+    }
+
     sub(v) {
         return new Vector3(this.x - v.x, this.y - v.y, this.z - v.z);
     }
 
     mulScalar(s) {
         return new Vector3(this.x * s, this.y * s, this.z * s);
+    }
+
+    mul(v) {
+        return new Vector3(this.x * v.x, this.y * v.y, this.z * v.z);
     }
 
     divScalar(s) {

@@ -398,6 +398,19 @@ class Mesh {
         return new Mesh(vertices, faces);
     }
 
+    static createPlane(width = 1, height = 1) {
+        const sx = width / 2;
+        const sy = height / 2;
+        const vertices = [
+            new Vector3(-sx, -sy, 0),
+            new Vector3(sx, -sy, 0),
+            new Vector3(sx, sy, 0),
+            new Vector3(-sx, sy, 0)
+        ];
+        const faces = [[0, 1, 2, 3]];
+        return new Mesh(vertices, faces);
+    }
+
     getCenter() {
         const transformed = this.getTransformedVertices();
         return Math3D.centroid(transformed);

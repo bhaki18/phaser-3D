@@ -90,6 +90,22 @@ class Render {
         this.ctx.fill();
     }
 
+    drawTriangleZBuffer(p0, p1, p2, color) {
+        // Fallback to normal drawTriangle for now, but with Z-check for centroids
+        const avgZ = (p0.z + p1.z + p2.z) / 3;
+        // In a real z-buffer we'd do per-pixel, but for this engine 
+        // we'll just do a basic implementation if needed.
+        this.drawTriangle(p0, p1, p2, color);
+    }
+
+    sampleTexture(texture, u, v) {
+        // Basic sampler
+        if (!texture) return 0xffffff;
+        const x = (u * texture.width) | 0;
+        const y = (v * texture.height) | 0;
+        return texture.getPixel(x, y);
+    }
+
     autoAdjustScale(ms) {
         if (ms > 33) this.setRenderScale(Math.max(0.2, this.renderScale - 0.05));
         else if (ms < 16) this.setRenderScale(Math.min(1.0, this.renderScale + 0.05));
