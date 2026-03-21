@@ -18,6 +18,13 @@
     <!-- Top Navigation -->
     <header class="topbar">
         <div class="topbar-inner">
+            <button class="menu-btn" id="menu-btn" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <div class="logo">
                 <div class="logo-icon glow-effect">
                     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,6 +54,7 @@
 
     <!-- Main Application Layout -->
     <div class="app-layout">
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
         
         <!-- Sidebar Navigation -->
         <aside class="sidebar glass-panel">

@@ -105,6 +105,18 @@ body {
     filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.5));
 }
 .logo-text { color: #fff; }
+.logo-text .gradient-text { margin-left: 6px; }
+
+/* Menu Button (Mobile) */
+.menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+}
 
 .nav-links { display: flex; align-items: center; gap: 30px; }
 .nav-tab {
@@ -143,6 +155,15 @@ body {
     width: 100%;
     gap: 0;
     padding: 0;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 150;
 }
 
 /* --- Sidebar --- */
@@ -369,3 +390,86 @@ body {
 .tk-number { color: var(--c-number); }
 .tk-comment { color: var(--c-comment); font-style: italic; }
 .tk-operator { color: var(--c-operator); }
+
+/* --- Responsive Media Queries --- */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 42px; }
+    .hero-subtitle { font-size: 16px; }
+    .topbar-inner { padding: 0 20px; }
+}
+
+@media (max-width: 768px) {
+    body { overflow-y: auto; } /* Allow overall scroll on mobile if needed */
+    
+    .menu-btn { display: block; }
+    .nav-links { display: none; } /* Hide regular nav on mobile */
+    
+    .app-layout {
+        flex-direction: column;
+        overflow: visible;
+    }
+    
+    .sidebar {
+        position: fixed;
+        left: -300px;
+        top: 70px;
+        height: calc(100vh - 70px);
+        z-index: 200;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border-right: 1px solid var(--border-glass);
+    }
+    
+    .sidebar.sidebar-open {
+        transform: translateX(300px);
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+    
+    .workspace {
+        min-height: calc(100vh - 70px);
+        position: relative;
+    }
+    
+    .hero-view {
+        position: relative;
+        padding: 40px 20px;
+        height: auto;
+    }
+    
+    .hero-content { padding: 30px; }
+    .hero-title { font-size: 32px; }
+    .hero-features { flex-direction: column; align-items: center; }
+    .feature-card { width: 100%; max-width: 300px; }
+    
+    .editor-view {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .preview-section {
+        flex: none;
+        height: 350px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+    
+    .resizer { display: none !important; }
+    
+    .code-section {
+        flex: none;
+        height: auto;
+        min-height: 400px;
+    }
+    
+    .docs-view {
+        position: relative;
+        height: auto;
+    }
+    
+    .docs-content-scroll { padding: 30px 20px; }
+    
+    .logo-text { font-size: 18px; }
+}

@@ -192,7 +192,25 @@ document.addEventListener('DOMContentLoaded', () => {
     iframe.addEventListener('load', () => {
         loader.classList.add('hidden');
     });
+
+    initMobileMenu();
 });
+
+function initMobileMenu() {
+    const menuBtn = document.getElementById('menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+
+    if (!menuBtn || !sidebar || !overlay) return;
+
+    function toggleMenu() {
+        sidebar.classList.toggle('sidebar-open');
+        overlay.classList.toggle('active');
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+}
 
 function initSidebar() {
     const sidebarNav = document.getElementById('sidebar-nav');
@@ -249,6 +267,10 @@ function loadDoc(category) {
     const docsView = document.getElementById('docs-view');
     docsView.classList.remove('hidden');
     
+    // Close sidebar on mobile
+    document.querySelector('.sidebar').classList.remove('sidebar-open');
+    document.getElementById('sidebar-overlay').classList.remove('active');
+    
     docsView.classList.remove('fade-in');
     void docsView.offsetWidth; 
     docsView.classList.add('fade-in');
@@ -292,6 +314,10 @@ function loadExample(filename, liElement) {
     const editorView = document.getElementById('editor-view');
     editorView.classList.remove('hidden');
     editorView.style.display = 'flex';
+
+    // Close sidebar on mobile
+    document.querySelector('.sidebar').classList.remove('sidebar-open');
+    document.getElementById('sidebar-overlay').classList.remove('active');
 
     // Update Visor & Code Content without re-writing layout
     const previewTitle = document.getElementById('preview-title');
