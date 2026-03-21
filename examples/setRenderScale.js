@@ -1,18 +1,25 @@
-﻿class Example extends Phaser.Scene {
+class Example extends Phaser.Scene {
     create() { 
-        this.add.text(10, 10, 'Interactive Visual Test\nTarget: .setRenderScale(scale).js', {fill:'#0f0', font:'18px Courier', backgroundColor:'#000'});
+        this.add.text(10, 10, 'Renderer.setRenderScale(scale)\nDemonstrating retro pixelation effects', {fill:'#0f0', font:'18px Courier', backgroundColor:'#000'});
         this.camera = new Camera(); 
         this.camera.position = new Vector3(0,0,-30);
-        this.renderer = new Render(this, this.camera, {renderScale:1.5});
+        this.renderer = new Render(this, this.camera, {renderScale:1});
         
-        // Target shape
         this.mesh = Mesh.createCube(12);
-        this.mesh.baseColor = 0x00FF88;
+        this.mesh.baseColor = 0xffcc00;
+        
+        this.info = this.add.text(10, 70, '', {fill:'#fff', font:'16px Courier'});
     }
     update(time, delta) {
         this.renderer.clearBuffers();
+        
+        // Cycle scale from 0.1 to 3.0
+        const scale = 0.2 + (Math.sin(time / 1000) + 1) * 1.4;
+        this.renderer.setRenderScale(scale);
+        
         this.mesh.rotation.y += 0.015;
-        this.mesh.rotation.x += 0.01;
+        this.info.setText(`Render Scale: ${scale.toFixed(2)}x\nEffective Resolution: ${Math.round(800 * scale)}x${Math.round(600 * scale)}`);
+        
         this.renderer.render([this.mesh]);
     }
 }

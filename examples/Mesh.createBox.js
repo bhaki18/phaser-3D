@@ -1,18 +1,18 @@
-﻿class Example extends Phaser.Scene {
+class Example extends Phaser.Scene {
     create() { 
-        this.add.text(10, 10, 'Interactive Visual Test\nTarget: Mesh.createBox(w, h, d).js', {fill:'#0f0', font:'18px Courier', backgroundColor:'#000'});
+        this.add.text(10, 10, 'Mesh.createBox(w, h, d)\nDimensions: 20 x 5 x 10', {fill:'#0f0', font:'18px Courier', backgroundColor:'#000'});
         this.camera = new Camera(); 
-        this.camera.position = new Vector3(0,0,-30);
+        this.camera.position = new Vector3(0,0,-40);
         this.renderer = new Render(this, this.camera, {renderScale:1.5});
         
-        // Target shape
-        this.mesh = Mesh.createCube(12);
-        this.mesh.baseColor = 0x00FF88;
+        // Creating a non-uniform box
+        this.mesh = Mesh.createBox(20, 5, 10);
+        this.mesh.baseColor = 0xffaa00;
     }
     update(time, delta) {
         this.renderer.clearBuffers();
-        this.mesh.rotation.y += 0.015;
-        this.mesh.rotation.x += 0.01;
+        this.mesh.rotation.y += 0.01;
+        this.mesh.rotation.x += 0.005;
         this.renderer.render([this.mesh]);
     }
 }
