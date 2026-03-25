@@ -21,6 +21,9 @@ const examplesData = {
     "Math3D (Projection)": [
         "Math3D.computeNormal.js", "Math3D.isFaceVisible.js", 
         "Math3D.project.js", "Math3D.triangulate.js"
+    ],
+    "Physics (Dynamics)": [
+        "PhysicsWorld.gravity.js", "RigidBody.collision.js"
     ]
 };
 
@@ -29,7 +32,12 @@ const categoryToFile = {
     "Camera": "Camera.js",
     "Mesh (Geometry)": "Mesh.js",
     "Renderer (Core)": "Render.js",
-    "Math3D (Projection)": "Math3D.js"
+    "Math3D (Projection)": "Math3D.js",
+    "Physics (Dynamics)": [
+        "../physics/PhysicsWorld.js",
+        "../physics/RigidBody.js",
+        "../physics/collision.js"
+    ]
 };
 
 const docsData = {
@@ -115,6 +123,32 @@ const docsData = {
             <li><code>Math3D.project(v, camera, width, height)</code> - Projects a camera-space vector into 2D screen coordinates.</li>
             <li><code>Math3D.computeNormal(v1, v2, v3)</code> - Returns the normalized perpendicular Vector3 of a triangle face.</li>
             <li><code>Math3D.isFaceVisible(v1, v2, v3)</code> - Returns true if the triangle faces the camera (based on normal dot product).</li>
+        </ul>
+    `,
+    "Physics (Dynamics)": `
+        <h1>Physics</h1>
+        <p>A custom 3D dynamics and collision module supporting RigidBodies, Gravity, and Collision Resolution.</p>
+        <h2>PhysicsWorld</h2>
+        <p>The main physics simulation environment.</p>
+        <ul>
+            <li><code>new PhysicsWorld(gravity)</code> - Constructor.</li>
+            <li><code>.addBody(body)</code> / <code>.removeBody(body)</code> - Manages rigid bodies within the world state.</li>
+            <li><code>.step(dt)</code> - Advances simulation, applies gravity, detects and resolves collisions dynamically (O(N^2)).</li>
+        </ul>
+        <h2>RigidBody</h2>
+        <p>Attaches physical properties to a 3D Mesh.</p>
+        <ul>
+            <li><code>new RigidBody(mesh, options)</code> - Available <code>options</code> include: mass, isStatic, bounciness, friction, useGravity, and colliderType ('sphere' or 'aabb').</li>
+            <li><code>.applyForce(force)</code> - Adds a continuous force to the body.</li>
+            <li><code>.applyImpulse(impulse)</code> - Applies an immediate impulse modifying the velocity instantaneously.</li>
+            <li><code>.update(dt)</code> - Updates positional state based on linear integration.</li>
+        </ul>
+        <h2>Collision</h2>
+        <p>Static mathematical class for detecting and resolving geometric intersections.</p>
+        <ul>
+            <li><code>Collision.checkSphereSphere(bodyA, bodyB)</code> - Determines intersection between two spherical boundaries.</li>
+            <li><code>Collision.checkAABBAABB(bodyA, bodyB)</code> - Determines intersection between two Axis-Aligned Bounding Boxes.</li>
+            <li><code>Collision.resolveCollision(bodyA, bodyB, collisionData)</code> - Resolves velocity and positional corrections utilizing impulses and mass weighting.</li>
         </ul>
     `
 };
@@ -284,14 +318,16 @@ function loadDoc(category) {
         <pre><code id="api-source-code"></code></pre>
     `;
 
-    const filename = categoryToFile[category];
-    if (filename) {
-        fetch('./phaser3D/js/' + filename)
+    const filenames = categoryToFile[category];
+    if (filenames) {
+        const files = Array.isArray(filenames) ? filenames : [filenames];
+        Promise.all(files.map(f => fetch('./phaser3D/js/' + f)
             .then(res => res.text())
-            .then(code => {
+            .then(text => `// ==========================================\n// File: ${f.split('/').pop()}\n// ==========================================\n${text}`)))
+            .then(codes => {
                 document.getElementById('api-source-loader').classList.add('hidden');
                 const codeEl = document.getElementById('api-source-code');
-                codeEl.textContent = code;
+                codeEl.textContent = codes.join('\n\n');
                 applySyntaxHighlighting(codeEl);
             })
             .catch(err => {

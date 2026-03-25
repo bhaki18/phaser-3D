@@ -27,6 +27,9 @@
         import Mesh from './phaser3D/js/Mesh.js';
         import Render from './phaser3D/js/Render.js';
         import Math3D from './phaser3D/js/Math3D.js';
+        import PhysicsWorld from './phaser3D/physics/PhysicsWorld.js';
+        import RigidBody from './phaser3D/physics/RigidBody.js';
+        import Collision from './phaser3D/physics/collision.js';
 
         // Expose modules to the global scope
         window.Vector3 = Vector3;
@@ -34,6 +37,9 @@
         window.Mesh = Mesh;
         window.Render = Render;
         window.Math3D = Math3D;
+        window.PhysicsWorld = PhysicsWorld;
+        window.RigidBody = RigidBody;
+        window.Collision = Collision;
 
         const urlParams = new URLSearchParams(window.location.search);
         const fileParam = urlParams.get('file');
